@@ -1,0 +1,24 @@
+function [dataWithParams] = getDataByParams (allData, varargin)
+dataWithParams = [];
+
+% get parameters name and value
+nvars = length(varargin);
+pNames = [];
+pVars = [];
+
+for i = 1:2:nvars
+   pNames = [pNames; varargin(i)];
+   pVals = [pVals; varargin(i)];
+end
+
+
+for datum = allData'
+    
+    for i = 1:size(pNames,2);
+    
+    
+    if (datum.(paramA) == valA && datum.(paramB) == valB)
+        dataWithParams = [dataWithParams ; datum];
+    end
+end
+end

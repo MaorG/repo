@@ -1,0 +1,66 @@
+function [] = calcTableFit(rt)
+
+figure(1)
+surf(rt.valsA, rt.valsB, rt.T);
+
+lx = rt.valsA;
+ly = rt.T(ceil(end/2), :);
+
+f = @(p,x) p(1) + p(2) ./ (1 + exp(-(x-p(3))/p(4)));
+p = nlinfit(lx,ly,f,[0 0 0 0.1]);
+figure(2)
+line(lx,f(p,lx),'color','r')
+
+x = rt.valsA;
+y = rt.valsB;
+z = rt.T;
+
+[X, Y] = meshgrid(x,y);
+
+% Create input independent variable (10 x 10 x 2):
+XY(:,:,1) = X;
+XY(:,:,2) = Y;
+
+% Create Objective Function: 
+
+
+f = @(p,x) p(1) + p(2) ./ (1 + exp(-(x-p(3))/p(4)));
+p = nlinfit(lx,ly,f,[0 0 0 0.1]);
+
+surfit = @(p,XY) p(1) + p(2) ./ (1 + exp( - ( (XY(:,:,1) * p(5) + XY(:,:,2) * (1 - p(5))) - p(3) / p(4) ) ) ) ;
+p = nlinfit(XY(:,:,1), XY(:,:,2,ly,surfix,[0 0 0 0.1]);
+
+
+surfit = @(B,XY)  B(1)*exp(B(2).*XY(:,:,1)) + (1 - exp(B(3).*XY(:,:,2))); 
+% surfit = @(B,XY)  exp(B(1).*XY(:,:,1)) + (1 - exp(B(2).*XY(:,:,2))); 
+
+% Do Regression
+B = lsqcurvefit(surfit, [0.5 -0.5 -0.5], XY, z, [0  -10  -10],  [1  10  10]);
+
+% Calculate Fitted Surface:
+Z = surfit(B,XY); 
+
+% Plot: 
+figure(2)
+stem3(x, y, z, 'k', 'fill')             % Original Data
+hold on
+surf(X, Y, Z)                           % Fitted Surface
+
+ly =  Y(ceil(end/2),:);
+lz = f(p,lx);
+surface([lx;lx],[ly;ly],[lz;lz],...
+            'facecol','no',...
+            'edgecol','blue',...
+            'linew',1);
+
+
+hold off
+xlabel('X \rightarrow')
+ylabel('\leftarrow Y')
+zlabel('Z \rightarrow')
+grid
+
+
+
+        
+end
