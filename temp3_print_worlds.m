@@ -52,6 +52,8 @@ for row = 1:rows
         hold on;
 
        %imagesc(C);
+       title([cruns{col, row}{1}(1).nameA, ': ', num2str(cruns{col, row}{1}(1).paramA), ' ', cruns{col, row}{1}(1).nameB  ,': ', num2str(cruns{col, row}{1}(1).paramB)]);%, num2str(floor(nanmean(coeff)))]);
+
        % title(['d: ', num2str(cr{col, row}{1}(1).paramA), ' g: ', num2str(cr{col, row}{1}(1).paramB)]);
     end
 end

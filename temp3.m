@@ -14,7 +14,7 @@ for i = 1:numel(cruns)
     coeff = [];
     allY = [];
     for run = cruns{i}
-        rtMix = createResultTable(run{1}, 'paramA', 'time', 'mean', 'mix4');
+        rtMix = createResultTable(run{1}, 'paramA', 'time', 'mean', 'outpost4');
         rtCount = createResultTable(run{1}, 'paramA', 'time', 'mean', 'count');
         rtParamC = createResultTable(run{1}, 'paramA', 'time', 'mean', 'paramC');
         y = rtMix.T;
@@ -60,7 +60,7 @@ for i = 1:numel(cruns)
         
         
     
-        %axis([-inf,inf,0,1]);
+        axis([-inf,inf,0,1]);
         caxis([0,5000]);
         hold on;
     end
@@ -68,7 +68,7 @@ for i = 1:numel(cruns)
 %     y = nanmean(allY,1);
 %     surface([x;x],[y;y],[z;z]);
     if (numel(cruns{1}) > 0)
-        title(['d: ', num2str(cruns{i}{1}(1).paramA), ' g: ', num2str(cruns{i}{1}(1).paramB), ' c: ']);%, num2str(floor(nanmean(coeff)))]);
+        title([cruns{i}{1}(1).nameA, ': ', num2str(cruns{i}{1}(1).paramA), ' ', cruns{i}{1}(1).nameB  ,': ', num2str(cruns{i}{1}(1).paramB), ' c: ']);%, num2str(floor(nanmean(coeff)))]);
     end
 
 end
